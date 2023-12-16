@@ -1,6 +1,8 @@
 /* eslint-disable wrap-iife */
 import './assets/css/styles.css';
 import temperatureHeader from './components/temperature-header/temperatureHeader';
+import footer from './components/footer/footer';
+import forecastBar from './components/forecast-bar/forecastBar';
 
 // prettier=ignore
 const dataController = (function () {
@@ -79,18 +81,21 @@ const dataController = (function () {
     parseForecastJson,
   };
 })();
-const location = '11420';
-const weatherData = dataController.getCurrentWeather(location);
-const forecastData = dataController.getForecast(location);
 
 (function displayController() {
   const pageContainer = document.getElementById('page-container');
+  const location = 'London';
+  const weatherData = dataController.getCurrentWeather(location);
+  const forecastData = dataController.getForecast(location);
 
   Promise.all([weatherData, forecastData]).then((data) => {
     const parsedWeatherData = dataController.parseWeatherJson(data[0]);
     const parsedForecastData = dataController.parseForecastJson(data[1]);
-    pageContainer.prepend(
+    pageContainer.append(
       temperatureHeader(parsedWeatherData, parsedForecastData),
+
+      forecastBar(parsedWeatherData, parsedForecastData),
+      footer(),
     );
   });
 })();

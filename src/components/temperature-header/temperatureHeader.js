@@ -37,10 +37,10 @@ export default function temperatureHeader(weatherData, forecastData) {
   condition.textContent = weatherInfo.weatherCondition;
   condition.setAttribute('id', 'condition');
   weatherIcon.src = weatherInfo.weatherIcon;
-  hiTemp.textContent = `Hi: ${forecastInfo.maxTemperatureFarenheit}${farenheitDegree}`;
+  hiTemp.textContent = `Hi: ${forecastInfo.maxTemperatureFarenheit}\u00B0`;
   hiTemp.setAttribute('id', 'hiTemp');
   loTemp.setAttribute('id', 'loTemp');
-  loTemp.textContent = `Lo: ${forecastInfo.minTemperatureFarenheit}${farenheitDegree}`;
+  loTemp.textContent = `Lo: ${forecastInfo.minTemperatureFarenheit}\u00B0`;
   forecastDiv.setAttribute('id', 'current-forecast');
   forecastDiv.append(weatherIcon, condition, hiTemp, loTemp);
 

@@ -35,7 +35,7 @@ body {
   -o-background-size: cover;
   background-size: cover; */
   display: grid;
-  grid-template-rows: repeat(auto, 4);
+  grid-template-rows: auto auto auto 1fr auto;
   justify-items: center;
 }
 

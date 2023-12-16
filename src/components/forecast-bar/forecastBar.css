@@ -1,0 +1,34 @@
+#forecast-bar {
+  border-radius: 24px;
+  background-color: rgba(0, 0, 0, 0.05);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.forecast-detail {
+  padding: 12px;
+  display: grid;
+  grid-template: repeat(auto, 2) / 64px auto;
+  justify-items: center;
+  align-items: center;
+  grid-template-areas:
+    'icon title'
+    'icon data';
+  gap: 8px;
+}
+
+.forecast-detail img {
+  grid-area: icon;
+  width: 48px;
+}
+
+.forecast-detail h2 {
+  grid-area: title;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.forecast-detail p {
+  grid-area: data;
+  font-size: 1.2rem;
+}
