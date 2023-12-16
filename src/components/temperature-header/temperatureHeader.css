@@ -1,0 +1,72 @@
+#temperature-header {
+  padding: 8px;
+  display: grid;
+  grid-template-rows: repeat(auto, 4);
+  justify-items: center;
+  border-radius: 24px;
+  background-color: rgba(0, 0, 0, 0.05);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+#date {
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 12px 0px;
+}
+
+#temp-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+#current-temp {
+  font-size: 6rem;
+  font-weight: 700;
+  padding-left: 20px;
+}
+
+#temp-scale {
+  font-size: 1.5rem;
+  padding-top: 16px;
+  font-weight: 400;
+}
+
+#current-forecast {
+  width: 225px;
+  display: grid;
+  grid-template: repeat(min-content, 2) / repeat(1fr, 2);
+  grid-template-areas:
+    'icon condition'
+    'hi lo';
+  justify-items: center;
+  align-items: center;
+}
+
+#current-forecast img {
+  grid-area: icon;
+  align-self: center;
+  scale: 1.5;
+}
+
+#condition {
+  grid-area: condition;
+  justify-self: start;
+}
+
+#hiTemp {
+  grid-area: hi;
+  justify-self: start;
+}
+
+#loTemp {
+  grid-area: lo;
+  justify-self: end;
+}
+
+#hiTemp,
+#loTemp {
+  padding: 24px 0px;
+  font-size: 1rem;
+  font-weight: 400;
+}
