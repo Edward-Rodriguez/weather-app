@@ -7,7 +7,7 @@ const forecastDetail = (title, icon, data) => {
   container.classList.add('forecast-detail');
   heading.textContent = title;
   image.src = icon;
-  weatherData.textContent = `${data}\u00B0`;
+  weatherData.textContent = data;
 
   container.append(image, heading, weatherData);
   return container;

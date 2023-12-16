@@ -28,15 +28,10 @@ body {
 #page-container {
   min-height: 100%;
   padding: 64px 0px;
-  /* background: url(../images/background-scenery.jpg) no-repeat center center
-    fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; */
   display: grid;
   grid-template-rows: auto auto auto 1fr auto;
   justify-items: center;
+  gap: 48px;
 }
 
 form {

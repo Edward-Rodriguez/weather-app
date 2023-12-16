@@ -84,7 +84,7 @@ const dataController = (function () {
 
 (function displayController() {
   const pageContainer = document.getElementById('page-container');
-  const location = 'London';
+  const location = '11420';
   const weatherData = dataController.getCurrentWeather(location);
   const forecastData = dataController.getForecast(location);
 
