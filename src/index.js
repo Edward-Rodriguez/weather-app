@@ -95,5 +95,10 @@ const dataController = (function () {
       forecastBar(parsedWeatherData, parsedForecastData),
       footer(),
     );
+
+    // set farenheit btn active
+    const farenheitBtn = document.getElementById('farenheit-btn');
+    farenheitBtn.click();
+    farenheitBtn.focus();
   });
 })();

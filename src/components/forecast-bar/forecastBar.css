@@ -1,8 +1,8 @@
 #forecast-bar {
-  display: flex;
+  display: grid;
   gap: 32px;
-  flex-wrap: wrap;
-  justify-content: center;
+  place-items: center;
+  grid-auto-flow: column;
 }
 
 .forecast-detail {
@@ -13,7 +13,7 @@
   grid-template-areas:
     'icon title'
     'icon data';
-  gap: 4px;
+  column-gap: 8px;
 }
 
 .forecast-detail img {

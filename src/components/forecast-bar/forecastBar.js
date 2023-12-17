@@ -9,25 +9,28 @@ const forecastBar = (weatherData, forecastData) => {
   const container = document.createElement('div');
   const weatherInfo = weatherData;
   const forecastInfo = forecastData;
+  const { feelsLikeFarenheit, humidity, windSpeedMph } = weatherInfo;
+  const { dailyChanceOfRain } = forecastInfo;
+
   const feelsLikeComponent = forecastDetail(
     'Feels Like',
     thermoststatIcon,
-    `${weatherInfo.feelsLikeFarenheit}\u00B0`,
+    `${Math.round(feelsLikeFarenheit)}\u00B0`,
   );
   const humidityComponent = forecastDetail(
     'Humidity',
     humidityIcon,
-    `${weatherInfo.humidity}\u0025`,
+    `${Math.round(humidity)}\u0025`,
   );
   const rainChanceComponent = forecastDetail(
-    'Rain Chance',
+    'Precipitation',
     rainIcon,
-    `${forecastInfo.dailyChanceOfRain}\u0025`,
+    `${Math.round(dailyChanceOfRain)}\u0025`,
   );
   const windSpeedComponent = forecastDetail(
     'Wind Speed',
     airIcon,
-    `${weatherInfo.windSpeedMph} mph`,
+    `${Math.round(windSpeedMph)} mph`,
   );
 
   container.setAttribute('id', 'forecast-bar');
