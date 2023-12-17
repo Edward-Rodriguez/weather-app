@@ -1,8 +1,9 @@
 #forecast-bar {
+  width: 95%;
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 140px));
   gap: 32px;
-  place-items: center;
-  grid-auto-flow: column;
+  justify-content: center;
 }
 
 .forecast-detail {
@@ -25,9 +26,11 @@
   grid-area: title;
   font-size: 0.8rem;
   font-weight: 400;
+  justify-self: start;
 }
 
 .forecast-detail p {
   grid-area: data;
   font-size: 1.2rem;
+  justify-self: start;
 }
