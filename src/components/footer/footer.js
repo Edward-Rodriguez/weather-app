@@ -10,7 +10,7 @@ const footer = () => {
   author.textContent = 'User635';
   site.textContent = 'backiee';
   site.href = siteLink;
-  container.append('Photo by ', author, ' on ', site);
+  container.append('Image by ', author, ' on ', site);
 
   return container;
 };

@@ -3,16 +3,19 @@
   display: grid;
   grid-template-rows: repeat(auto, 4);
   justify-items: center;
-  border-radius: 24px;
-  background-color: rgba(0, 0, 0, 0.05);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 #date {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 400;
-  padding: 12px 0px;
+  padding: 4px 0px;
+}
+
+#location {
+  justify-self: center;
+  align-self: center;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
 }
 
 #temp-container {
@@ -56,12 +59,12 @@
 
 #hiTemp {
   grid-area: hi;
-  justify-self: start;
+  justify-self: center;
 }
 
 #loTemp {
   grid-area: lo;
-  justify-self: end;
+  justify-self: center;
 }
 
 #hiTemp,

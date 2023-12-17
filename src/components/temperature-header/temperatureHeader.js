@@ -22,10 +22,7 @@ export default function temperatureHeader(weatherData, forecastData) {
   locationHeader.setAttribute('id', 'location');
   locationHeader.textContent = `${weatherInfo.location}, ${weatherInfo.region}`;
   time.setAttribute('id', 'date');
-  time.textContent = format(
-    new Date(weatherInfo.localtime),
-    'EEEE, do MMM yy pp',
-  );
+  time.textContent = format(new Date(weatherInfo.localtime), 'EEEE, MMM do p');
   tempDiv.setAttribute('id', 'temp-container');
   temperature.textContent = weatherInfo.temperatureFarenheit;
   temperature.setAttribute('id', 'current-temp');

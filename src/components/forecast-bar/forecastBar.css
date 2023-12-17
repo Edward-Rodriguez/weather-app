@@ -1,16 +1,13 @@
 #forecast-bar {
-  border-radius: 24px;
-  background-color: rgba(0, 0, 0, 0.05);
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   display: flex;
-  gap: 48px;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .forecast-detail {
-  padding: 12px;
   display: grid;
-  grid-template: repeat(auto, 2) / 64px auto;
+  grid-template: auto auto / 36px auto;
   justify-items: center;
   align-items: center;
   grid-template-areas:

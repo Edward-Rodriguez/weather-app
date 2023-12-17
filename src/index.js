@@ -31,7 +31,6 @@ const dataController = (function () {
   }
 
   function parseWeatherJson(weatherDataJson) {
-    // console.log(weatherDataJson);
     const {
       name: location,
       region,
@@ -84,7 +83,7 @@ const dataController = (function () {
 
 (function displayController() {
   const pageContainer = document.getElementById('page-container');
-  const location = '11420';
+  const location = '11418';
   const weatherData = dataController.getCurrentWeather(location);
   const forecastData = dataController.getForecast(location);
 
@@ -93,7 +92,6 @@ const dataController = (function () {
     const parsedForecastData = dataController.parseForecastJson(data[1]);
     pageContainer.append(
       temperatureHeader(parsedWeatherData, parsedForecastData),
-
       forecastBar(parsedWeatherData, parsedForecastData),
       footer(),
     );
