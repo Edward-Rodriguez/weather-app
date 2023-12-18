@@ -29,9 +29,12 @@ export default function temperatureHeader(weatherData, forecastData) {
   locationHeader.textContent = `${weatherInfo.location}, ${weatherInfo.region}`;
   time.setAttribute('id', 'date');
   time.textContent = format(new Date(weatherInfo.localtime), 'EEEE, MMM do p');
+  condition.textContent = weatherInfo.weatherCondition;
+  condition.setAttribute('id', 'condition');
 
   // temperature container
   tempDiv.setAttribute('id', 'temp-container');
+  weatherIcon.src = weatherInfo.weatherIcon;
   temperature.textContent = Math.round(tempValue);
   temperature.setAttribute('id', 'current-temp');
   farenheitScale.textContent = farenheitDegree;
@@ -41,20 +44,18 @@ export default function temperatureHeader(weatherData, forecastData) {
   celsiusScale.classList.add('scale-btn');
   divider.classList.add('divider');
   scaleDiv.append(farenheitScale, divider, celsiusScale);
-  tempDiv.append(temperature, scaleDiv);
+  tempDiv.append(weatherIcon, temperature, scaleDiv);
 
   // forecast div with icon, condition, hi & lo
-  condition.textContent = weatherInfo.weatherCondition;
-  condition.setAttribute('id', 'condition');
-  weatherIcon.src = weatherInfo.weatherIcon;
+
   hiTemp.textContent = `Hi: ${Math.round(maxTempValue)}\u00B0`;
   hiTemp.setAttribute('id', 'hiTemp');
   loTemp.setAttribute('id', 'loTemp');
   loTemp.textContent = `Lo: ${Math.round(minTempValue)}\u00B0`;
   forecastDiv.setAttribute('id', 'current-forecast');
-  forecastDiv.append(weatherIcon, condition, hiTemp, loTemp);
+  forecastDiv.append(hiTemp, loTemp);
 
-  container.append(locationHeader, time, tempDiv, forecastDiv);
+  container.append(locationHeader, time, condition, tempDiv, forecastDiv);
 
   function convertToCelsius(tempToUpdate) {
     let newCelsiusTemp = tempToUpdate;
@@ -68,17 +69,29 @@ export default function temperatureHeader(weatherData, forecastData) {
     temperature.textContent = Math.round(tempValue);
   }
 
-  farenheitScale.addEventListener('click', () => {
+  function toggleActiveScale(ev) {
+    if (ev.target.id === 'farenheit-btn') {
+      farenheitScale.classList.add('active');
+      celsiusScale.classList.remove('active');
+    } else {
+      farenheitScale.classList.remove('active');
+      celsiusScale.classList.add('active');
+    }
+  }
+
+  farenheitScale.addEventListener('click', (ev) => {
     tempValue = Math.round(weatherInfo.temperatureFarenheit);
     maxTempValue = Math.round(forecastInfo.maxTemperatureFarenheit);
     minTempValue = Math.round(forecastInfo.minTemperatureFarenheit);
+    toggleActiveScale(ev);
     refreshTemperatureDisplay();
   });
 
-  celsiusScale.addEventListener('click', () => {
+  celsiusScale.addEventListener('click', (ev) => {
     tempValue = convertToCelsius(tempValue);
     maxTempValue = convertToCelsius(maxTempValue);
     minTempValue = convertToCelsius(minTempValue);
+    toggleActiveScale(ev);
     refreshTemperatureDisplay();
   });
 
