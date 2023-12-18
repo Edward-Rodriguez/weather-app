@@ -5,6 +5,7 @@ import temperatureHeader from './components/temperature-header/temperatureHeader
 import footer from './components/footer/footer';
 import forecastBar from './components/forecast-bar/forecastBar';
 import searchBox from './components/searchbox/searchBox';
+import threeDayForecast from './components/upcoming-forecast/threeDayForecast';
 
 // prettier=ignore
 const dataController = (function () {
@@ -62,17 +63,27 @@ const dataController = (function () {
     };
   }
 
-  function parseForecastJson(forecastDataJson, day = 0) {
-    const {
-      maxtemp_f: maxTemperatureFarenheit,
-      mintemp_f: minTemperatureFarenheit,
-      daily_chance_of_rain: dailyChanceOfRain,
-    } = forecastDataJson.forecast.forecastday[day].day;
-    return {
-      maxTemperatureFarenheit,
-      minTemperatureFarenheit,
-      dailyChanceOfRain,
-    };
+  function parseForecastJson(forecastDataJson) {
+    const forecastDaysArray = [];
+    const numOfDays = forecastDataJson.forecast.forecastday.length;
+    for (let day = 0; day < numOfDays; day += 1) {
+      const { date } = forecastDataJson.forecast.forecastday[day];
+      const {
+        maxtemp_f: maxTemperatureFarenheit,
+        mintemp_f: minTemperatureFarenheit,
+        daily_chance_of_rain: dailyChanceOfRain,
+      } = forecastDataJson.forecast.forecastday[day].day;
+      const { icon } = forecastDataJson.forecast.forecastday[day].day.condition;
+      forecastDaysArray.push({
+        maxTemperatureFarenheit,
+        minTemperatureFarenheit,
+        dailyChanceOfRain,
+        date,
+        icon,
+      });
+    }
+
+    return forecastDaysArray;
   }
 
   return {
@@ -105,20 +116,25 @@ const dataController = (function () {
   function updateDisplay(location) {
     const weatherData = dataController.getCurrentWeather(location);
     const forecastData = dataController.getForecast(location);
+    const threeDayForecastData = dataController.getForecast(location, 4);
 
-    return Promise.all([weatherData, forecastData]).then((data) => {
-      const parsedWeatherData = dataController.parseWeatherJson(data[0]);
-      const parsedForecastData = dataController.parseForecastJson(data[1]);
+    return Promise.all([weatherData, forecastData, threeDayForecastData]).then(
+      (data) => {
+        console.log(threeDayForecastData);
+        const parsedWeatherData = dataController.parseWeatherJson(data[0]);
+        const parsedForecastData = dataController.parseForecastJson(data[1]);
+        const parsedThreeDayData = dataController.parseForecastJson(data[2]);
+        console.log(parsedThreeDayData);
 
-      // update all components except searchbox and footer
-      clearTemperatureDisplayData();
-      searchField.container.after(
-        temperatureHeader(parsedWeatherData, parsedForecastData),
-        forecastBar(parsedWeatherData, parsedForecastData),
-        (document.createElement('div').textContent =
-          '3day Forecast Placeholder'),
-      );
-    });
+        // update all components except searchbox and footer
+        clearTemperatureDisplayData();
+        searchField.container.after(
+          temperatureHeader(parsedWeatherData, parsedForecastData[0]),
+          forecastBar(parsedWeatherData, parsedForecastData[0]),
+          threeDayForecast(parsedThreeDayData),
+        );
+      },
+    );
   }
 
   updateDisplay(defaultLocation);

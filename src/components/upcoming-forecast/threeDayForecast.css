@@ -1,0 +1,34 @@
+.upcoming-day-forecast {
+  display: grid;
+  grid-template: auto 64px auto / repeat(2, auto);
+  grid-template-areas:
+    'day day'
+    'icon icon'
+    'hi lo';
+  align-content: start;
+  justify-items: center;
+}
+
+.upcoming-day-forecast h3 {
+  grid-area: day;
+}
+
+.upcoming-day-forecast img {
+  grid-area: icon;
+  width: 64px;
+  height: auto;
+}
+
+.day-forecast-hitemp {
+  grid-area: hi;
+}
+
+.day-forecast-lotemp {
+  grid-area: lo;
+}
+
+#threeDay-forecast-container {
+  display: flex;
+  gap: 48px;
+  padding-top: 48px;
+}
