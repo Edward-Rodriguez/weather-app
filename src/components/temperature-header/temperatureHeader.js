@@ -38,7 +38,7 @@ export default function temperatureHeader(weatherData, forecastData) {
   temperature.textContent = Math.round(tempValue);
   temperature.setAttribute('id', 'current-temp');
   farenheitScale.textContent = farenheitDegree;
-  farenheitScale.classList.add('scale-btn');
+  farenheitScale.classList.add('scale-btn', 'active');
   farenheitScale.setAttribute('id', 'farenheit-btn');
   celsiusScale.textContent = celsiusDegree;
   celsiusScale.classList.add('scale-btn');

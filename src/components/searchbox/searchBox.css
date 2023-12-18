@@ -3,15 +3,15 @@ form {
   padding: 2px;
   border: 1px solid #555;
   border-radius: 5px;
-  max-width: 300px;
-  justify-content: space-between;
+  max-width: 400px;
+  flex-wrap: wrap;
 }
 
 input[type='search'] {
   border: none;
   background: transparent;
   padding: 7px 8px;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   color: inherit;
   border: 1px solid transparent;
   border-radius: inherit;
@@ -22,19 +22,30 @@ input[type='search']:focus {
 }
 
 input[type='search']::placeholder {
-  color: #bbb;
+  /* color: #bbb; */
+  color: #f5f5f597;
 }
 
 button[type='submit'] {
-  text-indent: -999px;
+  text-indent: -9999px;
   overflow: hidden;
-  width: 40px;
+  min-width: 40px;
   border: none;
-  background: transparent url('../icons/search-icon.svg') no-repeat center;
+  background: transparent url('../../assets/icons/search-icon.svg') no-repeat
+    center;
   cursor: pointer;
   opacity: 0.6;
 }
 
 button[type='submit']:hover {
   opacity: 1;
+}
+
+#error-msg {
+  height: 28px;
+  width: min-content;
+  font-size: 0.6rem;
+  white-space: pre;
+  text-shadow: none;
+  font-weight: 400;
 }

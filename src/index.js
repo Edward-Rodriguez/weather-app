@@ -1,8 +1,10 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable wrap-iife */
 import './assets/css/styles.css';
 import temperatureHeader from './components/temperature-header/temperatureHeader';
 import footer from './components/footer/footer';
 import forecastBar from './components/forecast-bar/forecastBar';
+import searchBox from './components/searchbox/searchBox';
 
 // prettier=ignore
 const dataController = (function () {
@@ -83,22 +85,54 @@ const dataController = (function () {
 
 (function displayController() {
   const pageContainer = document.getElementById('page-container');
-  const location = '11420';
-  const weatherData = dataController.getCurrentWeather(location);
-  const forecastData = dataController.getForecast(location);
+  const defaultLocation = '10021';
+  const searchField = searchBox();
+  const footerComponent = footer();
+  pageContainer.append(searchField.container, footerComponent);
 
-  Promise.all([weatherData, forecastData]).then((data) => {
-    const parsedWeatherData = dataController.parseWeatherJson(data[0]);
-    const parsedForecastData = dataController.parseForecastJson(data[1]);
-    pageContainer.append(
-      temperatureHeader(parsedWeatherData, parsedForecastData),
-      forecastBar(parsedWeatherData, parsedForecastData),
-      footer(),
-    );
+  // delete all components except searchbox and footer
+  function clearTemperatureDisplayData() {
+    Array.from(pageContainer.children).forEach((childElement) => {
+      if (
+        childElement !== searchField.container &&
+        childElement !== footerComponent
+      ) {
+        pageContainer.removeChild(childElement);
+      }
+    });
+  }
 
-    // set farenheit btn active
-    const farenheitBtn = document.getElementById('farenheit-btn');
-    farenheitBtn.click();
-    farenheitBtn.focus();
-  });
+  function updateDisplay(location) {
+    const weatherData = dataController.getCurrentWeather(location);
+    const forecastData = dataController.getForecast(location);
+
+    return Promise.all([weatherData, forecastData]).then((data) => {
+      const parsedWeatherData = dataController.parseWeatherJson(data[0]);
+      const parsedForecastData = dataController.parseForecastJson(data[1]);
+
+      // update all components except searchbox and footer
+      clearTemperatureDisplayData();
+      searchField.container.after(
+        temperatureHeader(parsedWeatherData, parsedForecastData),
+        forecastBar(parsedWeatherData, parsedForecastData),
+        (document.createElement('div').textContent =
+          '3day Forecast Placeholder'),
+      );
+    });
+  }
+
+  updateDisplay(defaultLocation);
+
+  function handleSearchSubmit(ev) {
+    ev.preventDefault();
+    const newLocation = searchField.input.value;
+    updateDisplay(newLocation)
+      .then(() => searchField.clearErrorMsg())
+      .catch(() => {
+        searchField.setErrorMsg();
+      });
+  }
+
+  searchField.form.addEventListener('submit', (ev) => handleSearchSubmit(ev));
+  searchField.form.addEventListener('enter', (ev) => handleSearchSubmit(ev));
 })();

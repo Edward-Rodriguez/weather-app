@@ -26,8 +26,8 @@ body {
 }
 
 #page-container {
-  min-height: 100%;
-  padding: 64px 0px;
+  min-height: 100vh;
+  padding: 16px 0px;
   display: grid;
   grid-template-rows: auto auto auto 1fr auto;
   justify-items: center;
