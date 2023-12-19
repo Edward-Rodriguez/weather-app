@@ -86,11 +86,25 @@ const dataController = (function () {
     return forecastDaysArray;
   }
 
+  function convertToCelsius(tempToUpdate) {
+    let newCelsiusTemp = tempToUpdate;
+    newCelsiusTemp = Math.round((newCelsiusTemp - 32) * (5 / 9));
+    return newCelsiusTemp;
+  }
+
+  function convertToFarenheit(tempToUpdate) {
+    let newFarenheitTemp = tempToUpdate;
+    newFarenheitTemp = Math.round(newFarenheitTemp * (9 / 5) + 32);
+    return newFarenheitTemp;
+  }
+
   return {
     getCurrentWeather,
     getForecast,
     parseWeatherJson,
     parseForecastJson,
+    convertToCelsius,
+    convertToFarenheit,
   };
 })();
 
@@ -113,6 +127,29 @@ const dataController = (function () {
     });
   }
 
+  function toggleTemperature() {
+    const farenheitButton = document.querySelector('#farenheit-btn');
+    const allTemperatureElements = document.querySelectorAll(
+      '[data-temp-farenheit]',
+    );
+
+    Array.from(allTemperatureElements).forEach((element) => {
+      const tempElement = element;
+      if (!farenheitButton.classList.contains('active')) {
+        tempElement.textContent = tempElement.dataset.tempCelsius;
+      } else {
+        tempElement.textContent = tempElement.dataset.tempFarenheit;
+      }
+    });
+  }
+
+  function addEventListeners() {
+    const scaleButtons = document.querySelectorAll('.scale-btn');
+    Array.from(scaleButtons).forEach((btn) => {
+      btn.addEventListener('click', () => toggleTemperature());
+    });
+  }
+
   function updateDisplay(location) {
     const weatherData = dataController.getCurrentWeather(location);
     const forecastData = dataController.getForecast(location);
@@ -131,6 +168,7 @@ const dataController = (function () {
           forecastBar(parsedWeatherData, parsedForecastData[0]),
           threeDayForecast(parsedThreeDayData),
         );
+        addEventListeners();
       },
     );
   }

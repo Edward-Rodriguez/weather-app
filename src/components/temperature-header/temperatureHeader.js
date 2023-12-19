@@ -1,5 +1,6 @@
 import './temperatureHeader.css';
 import { format } from 'date-fns';
+import convertToCelsius from '../../celsiusConversion';
 
 export default function temperatureHeader(weatherData, forecastData) {
   const weatherInfo = weatherData;
@@ -14,16 +15,18 @@ export default function temperatureHeader(weatherData, forecastData) {
   const celsiusScale = document.createElement('button');
   const forecastDiv = document.createElement('div');
   const condition = document.createElement('div');
-  const hiTemp = document.createElement('span');
-  const loTemp = document.createElement('span');
+  const hiTempContainer = document.createElement('div');
+  const hiTempValue = document.createElement('span');
+  const loTempContainer = document.createElement('div');
+  const loTempValue = document.createElement('span');
   const weatherIcon = document.createElement('img');
   const celsiusDegree = '\u2103';
   const farenheitDegree = '\u2109';
   const degreeSymbol = '\u00B0';
   const divider = document.createElement('span');
-  let tempValue = weatherInfo.temperatureFarenheit;
-  let maxTempValue = forecastInfo.maxTemperatureFarenheit;
-  let minTempValue = forecastInfo.minTemperatureFarenheit;
+  const { temperatureFarenheit } = weatherInfo;
+  const { maxTemperatureFarenheit } = forecastInfo;
+  const { minTemperatureFarenheit } = forecastInfo;
 
   container.setAttribute('id', 'temperature-header');
   locationHeader.setAttribute('id', 'location');
@@ -33,11 +36,13 @@ export default function temperatureHeader(weatherData, forecastData) {
   condition.textContent = weatherInfo.weatherCondition;
   condition.setAttribute('id', 'condition');
 
-  // temperature container
+  // temperature container w/ condition & icon
   tempDiv.setAttribute('id', 'temp-container');
   weatherIcon.src = weatherInfo.weatherIcon;
-  temperature.textContent = Math.round(tempValue);
   temperature.setAttribute('id', 'current-temp');
+  temperature.dataset.tempFarenheit = Math.round(temperatureFarenheit);
+  temperature.dataset.tempCelsius = convertToCelsius(temperatureFarenheit);
+  temperature.textContent = temperature.dataset.tempFarenheit;
   farenheitScale.textContent = farenheitDegree;
   farenheitScale.classList.add('scale-btn', 'active');
   farenheitScale.setAttribute('id', 'farenheit-btn');
@@ -47,28 +52,35 @@ export default function temperatureHeader(weatherData, forecastData) {
   scaleDiv.append(farenheitScale, divider, celsiusScale);
   tempDiv.append(weatherIcon, temperature, scaleDiv);
 
-  // forecast div with icon, condition, hi & lo
-
-  hiTemp.textContent = `Hi: ${Math.round(maxTempValue)}${degreeSymbol}`;
-  hiTemp.setAttribute('id', 'hiTemp');
-  loTemp.setAttribute('id', 'loTemp');
-  loTemp.textContent = `Lo: ${Math.round(minTempValue)}${degreeSymbol}`;
+  // hi & lo containers
+  hiTempContainer.setAttribute('id', 'hiTemp');
+  hiTempValue.dataset.tempFarenheit = Math.round(maxTemperatureFarenheit);
+  hiTempValue.dataset.tempCelsius = convertToCelsius(maxTemperatureFarenheit);
+  hiTempValue.textContent = hiTempValue.dataset.tempFarenheit;
+  hiTempContainer.append('Hi:', hiTempValue, degreeSymbol);
+  loTempContainer.setAttribute('id', 'loTemp');
+  loTempValue.dataset.tempFarenheit = Math.round(minTemperatureFarenheit);
+  loTempValue.dataset.tempCelsius = convertToCelsius(minTemperatureFarenheit);
+  loTempValue.textContent = loTempValue.dataset.tempFarenheit;
+  loTempContainer.append('Lo:', loTempValue, degreeSymbol);
   forecastDiv.setAttribute('id', 'current-forecast');
-  forecastDiv.append(hiTemp, loTemp);
+  forecastDiv.append(hiTempContainer, loTempContainer);
 
   container.append(locationHeader, time, condition, tempDiv, forecastDiv);
 
-  function convertToCelsius(tempToUpdate) {
-    let newCelsiusTemp = tempToUpdate;
-    newCelsiusTemp = Math.round((newCelsiusTemp - 32) * (5 / 9));
-    return newCelsiusTemp;
-  }
-
-  function refreshTemperatureDisplay() {
-    hiTemp.textContent = `Hi: ${Math.round(maxTempValue)}${degreeSymbol}`;
-    loTemp.textContent = `Lo: ${Math.round(minTempValue)}${degreeSymbol}`;
-    temperature.textContent = Math.round(tempValue);
-  }
+  // function refreshTemperatureDisplay() {
+  //   let tempValue = maxTemperatureFarenheit;
+  //   let minTempValue = minTemperatureFarenheit;
+  //   let maxTempValue = maxTemperatureFarenheit;
+  //   if (!farenheitScale.classList.contains('active')) {
+  //     tempValue = convertToCelsius(tempValue);
+  //     maxTempValue = convertToCelsius(maxTempValue);
+  //     minTempValue = convertToCelsius(minTempValue);
+  //   }
+  //   hiTemp.textContent = `Hi: ${Math.round(maxTempValue)}${degreeSymbol}`;
+  //   loTemp.textContent = `Lo: ${Math.round(minTempValue)}${degreeSymbol}`;
+  //   temperature.textContent = Math.round(tempValue);
+  // }
 
   function toggleActiveScale(ev) {
     if (ev.target.id === 'farenheit-btn') {
@@ -81,19 +93,13 @@ export default function temperatureHeader(weatherData, forecastData) {
   }
 
   farenheitScale.addEventListener('click', (ev) => {
-    tempValue = Math.round(weatherInfo.temperatureFarenheit);
-    maxTempValue = Math.round(forecastInfo.maxTemperatureFarenheit);
-    minTempValue = Math.round(forecastInfo.minTemperatureFarenheit);
     toggleActiveScale(ev);
-    refreshTemperatureDisplay();
+    // refreshTemperatureDisplay();
   });
 
   celsiusScale.addEventListener('click', (ev) => {
-    tempValue = convertToCelsius(tempValue);
-    maxTempValue = convertToCelsius(maxTempValue);
-    minTempValue = convertToCelsius(minTempValue);
     toggleActiveScale(ev);
-    refreshTemperatureDisplay();
+    // refreshTemperatureDisplay();
   });
 
   return container;
