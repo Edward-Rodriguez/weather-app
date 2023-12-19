@@ -7,7 +7,6 @@ import forecastBar from './components/forecast-bar/forecastBar';
 import searchBox from './components/searchbox/searchBox';
 import threeDayForecast from './components/upcoming-forecast/threeDayForecast';
 
-// prettier=ignore
 const dataController = (function () {
   async function getCurrentWeather(location) {
     try {
