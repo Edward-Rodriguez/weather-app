@@ -12,7 +12,7 @@ const dataController = (function () {
   async function getCurrentWeather(location) {
     try {
       const response = await fetch(
-        `http://api.weatherapi.com/v1/current.json?key=684d4e5264b04f99a1d142811231412&q=${location}`,
+        `https://api.weatherapi.com/v1/current.json?key=684d4e5264b04f99a1d142811231412&q=${location}`,
       );
       const weatherData = await response.json();
       return weatherData;
@@ -24,7 +24,7 @@ const dataController = (function () {
   async function getForecast(location, days = 1) {
     try {
       const response = await fetch(
-        `http://api.weatherapi.com/v1/forecast.json?key=684d4e5264b04f99a1d142811231412&q=${location}&days=${days}`,
+        `https://api.weatherapi.com/v1/forecast.json?key=684d4e5264b04f99a1d142811231412&q=${location}&days=${days}`,
       );
       const forecastData = await response.json();
       return forecastData;
