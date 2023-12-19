@@ -10,6 +10,7 @@ html {
   color: #f5f5f5;
   text-shadow: 1px 2px 3px rgba(62, 60, 55, 0.8);
   background: url(../images/background-scenery-landscape.jpg) no-repeat;
+  background-attachment: fixed;
   background-size: cover;
 }
 
