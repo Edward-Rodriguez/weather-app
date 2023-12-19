@@ -19,6 +19,7 @@ export default function temperatureHeader(weatherData, forecastData) {
   const weatherIcon = document.createElement('img');
   const celsiusDegree = '\u2103';
   const farenheitDegree = '\u2109';
+  const degreeSymbol = '\u00B0';
   const divider = document.createElement('span');
   let tempValue = weatherInfo.temperatureFarenheit;
   let maxTempValue = forecastInfo.maxTemperatureFarenheit;
@@ -48,10 +49,10 @@ export default function temperatureHeader(weatherData, forecastData) {
 
   // forecast div with icon, condition, hi & lo
 
-  hiTemp.textContent = `Hi: ${Math.round(maxTempValue)}\u00B0`;
+  hiTemp.textContent = `Hi: ${Math.round(maxTempValue)}${degreeSymbol}`;
   hiTemp.setAttribute('id', 'hiTemp');
   loTemp.setAttribute('id', 'loTemp');
-  loTemp.textContent = `Lo: ${Math.round(minTempValue)}\u00B0`;
+  loTemp.textContent = `Lo: ${Math.round(minTempValue)}${degreeSymbol}`;
   forecastDiv.setAttribute('id', 'current-forecast');
   forecastDiv.append(hiTemp, loTemp);
 
@@ -64,8 +65,8 @@ export default function temperatureHeader(weatherData, forecastData) {
   }
 
   function refreshTemperatureDisplay() {
-    hiTemp.textContent = `Hi: ${Math.round(maxTempValue)}\u00B0`;
-    loTemp.textContent = `Lo: ${Math.round(minTempValue)}\u00B0`;
+    hiTemp.textContent = `Hi: ${Math.round(maxTempValue)}${degreeSymbol}`;
+    loTemp.textContent = `Lo: ${Math.round(minTempValue)}${degreeSymbol}`;
     temperature.textContent = Math.round(tempValue);
   }
 

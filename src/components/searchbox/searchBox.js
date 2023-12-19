@@ -28,6 +28,10 @@ const searchBox = () => {
     error.textContent = errorMsg;
   }
 
+  function clearErrorMsg() {
+    error.textContent = '';
+  }
+
   form.append(label, input, submit);
   container.append(form, error);
 
@@ -36,6 +40,7 @@ const searchBox = () => {
     form,
     input,
     setErrorMsg,
+    clearErrorMsg,
   };
 };
 

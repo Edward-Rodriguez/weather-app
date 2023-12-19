@@ -5,7 +5,7 @@
     'day day'
     'icon icon'
     'hi lo';
-  align-content: start;
+  align-content: end;
   justify-items: center;
 }
 
@@ -21,10 +21,13 @@
 
 .day-forecast-hitemp {
   grid-area: hi;
+  padding-right: 4px;
 }
 
 .day-forecast-lotemp {
   grid-area: lo;
+  padding-left: 4px;
+  color: #f5f5f597;
 }
 
 #threeDay-forecast-container {

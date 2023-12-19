@@ -120,11 +120,9 @@ const dataController = (function () {
 
     return Promise.all([weatherData, forecastData, threeDayForecastData]).then(
       (data) => {
-        console.log(threeDayForecastData);
         const parsedWeatherData = dataController.parseWeatherJson(data[0]);
         const parsedForecastData = dataController.parseForecastJson(data[1]);
         const parsedThreeDayData = dataController.parseForecastJson(data[2]);
-        console.log(parsedThreeDayData);
 
         // update all components except searchbox and footer
         clearTemperatureDisplayData();
@@ -137,8 +135,6 @@ const dataController = (function () {
     );
   }
 
-  updateDisplay(defaultLocation);
-
   function handleSearchSubmit(ev) {
     ev.preventDefault();
     const newLocation = searchField.input.value;
@@ -149,6 +145,7 @@ const dataController = (function () {
       });
   }
 
+  updateDisplay(defaultLocation);
   searchField.form.addEventListener('submit', (ev) => handleSearchSubmit(ev));
   searchField.form.addEventListener('enter', (ev) => handleSearchSubmit(ev));
 })();
