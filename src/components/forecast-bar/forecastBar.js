@@ -11,21 +11,23 @@ const forecastBar = (weatherData, forecastData) => {
   const forecastInfo = forecastData;
   const { feelsLikeFarenheit, humidity, windSpeedMph } = weatherInfo;
   const { dailyChanceOfRain } = forecastInfo;
+  const degreeSymbol = '\u00B0';
+  const percentSymbol = '\u0025';
 
   const feelsLikeComponent = forecastDetail(
     'Feels Like',
     thermoststatIcon,
-    `${Math.round(feelsLikeFarenheit)}\u00B0`,
+    `${Math.round(feelsLikeFarenheit)}${degreeSymbol}`,
   );
   const humidityComponent = forecastDetail(
     'Humidity',
     humidityIcon,
-    `${Math.round(humidity)}\u0025`,
+    `${Math.round(humidity)}${percentSymbol}`,
   );
   const rainChanceComponent = forecastDetail(
     'Precipitation',
     rainIcon,
-    `${Math.round(dailyChanceOfRain)}\u0025`,
+    `${Math.round(dailyChanceOfRain)}${percentSymbol}`,
   );
   const windSpeedComponent = forecastDetail(
     'Wind Speed',

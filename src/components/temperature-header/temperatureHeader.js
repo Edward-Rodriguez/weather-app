@@ -68,20 +68,6 @@ export default function temperatureHeader(weatherData, forecastData) {
 
   container.append(locationHeader, time, condition, tempDiv, forecastDiv);
 
-  // function refreshTemperatureDisplay() {
-  //   let tempValue = maxTemperatureFarenheit;
-  //   let minTempValue = minTemperatureFarenheit;
-  //   let maxTempValue = maxTemperatureFarenheit;
-  //   if (!farenheitScale.classList.contains('active')) {
-  //     tempValue = convertToCelsius(tempValue);
-  //     maxTempValue = convertToCelsius(maxTempValue);
-  //     minTempValue = convertToCelsius(minTempValue);
-  //   }
-  //   hiTemp.textContent = `Hi: ${Math.round(maxTempValue)}${degreeSymbol}`;
-  //   loTemp.textContent = `Lo: ${Math.round(minTempValue)}${degreeSymbol}`;
-  //   temperature.textContent = Math.round(tempValue);
-  // }
-
   function toggleActiveScale(ev) {
     if (ev.target.id === 'farenheit-btn') {
       farenheitScale.classList.add('active');
@@ -92,15 +78,8 @@ export default function temperatureHeader(weatherData, forecastData) {
     }
   }
 
-  farenheitScale.addEventListener('click', (ev) => {
-    toggleActiveScale(ev);
-    // refreshTemperatureDisplay();
-  });
-
-  celsiusScale.addEventListener('click', (ev) => {
-    toggleActiveScale(ev);
-    // refreshTemperatureDisplay();
-  });
+  farenheitScale.addEventListener('click', (ev) => toggleActiveScale(ev));
+  celsiusScale.addEventListener('click', (ev) => toggleActiveScale(ev));
 
   return container;
 }

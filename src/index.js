@@ -85,25 +85,11 @@ const dataController = (function () {
     return forecastDaysArray;
   }
 
-  function convertToCelsius(tempToUpdate) {
-    let newCelsiusTemp = tempToUpdate;
-    newCelsiusTemp = Math.round((newCelsiusTemp - 32) * (5 / 9));
-    return newCelsiusTemp;
-  }
-
-  function convertToFarenheit(tempToUpdate) {
-    let newFarenheitTemp = tempToUpdate;
-    newFarenheitTemp = Math.round(newFarenheitTemp * (9 / 5) + 32);
-    return newFarenheitTemp;
-  }
-
   return {
     getCurrentWeather,
     getForecast,
     parseWeatherJson,
     parseForecastJson,
-    convertToCelsius,
-    convertToFarenheit,
   };
 })();
 

@@ -22,7 +22,6 @@ input[type='search']:focus {
 }
 
 input[type='search']::placeholder {
-  /* color: #bbb; */
   color: #f5f5f597;
 }
 
