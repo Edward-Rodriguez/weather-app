@@ -7,7 +7,7 @@ import forecastBar from './components/forecast-bar/forecastBar';
 import searchBox from './components/searchbox/searchBox';
 import threeDayForecast from './components/upcoming-forecast/threeDayForecast';
 
-const dataController = (function () {
+const dataController = (function apiDataFetchController() {
   async function getCurrentWeather(location) {
     try {
       const response = await fetch(
@@ -100,7 +100,7 @@ const dataController = (function () {
   const footerComponent = footer();
   pageContainer.append(searchField.container, footerComponent);
 
-  // delete all components except searchbox and footer
+  // remove all components except searchbox and footer
   function clearTemperatureDisplayData() {
     Array.from(pageContainer.children).forEach((childElement) => {
       if (

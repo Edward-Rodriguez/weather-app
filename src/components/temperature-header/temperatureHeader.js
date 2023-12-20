@@ -52,7 +52,7 @@ export default function temperatureHeader(weatherData, forecastData) {
   scaleDiv.append(farenheitScale, divider, celsiusScale);
   tempDiv.append(weatherIcon, temperature, scaleDiv);
 
-  // hi & lo containers
+  // hi & lo temperature containers
   hiTempContainer.setAttribute('id', 'hiTemp');
   hiTempValue.dataset.tempFarenheit = Math.round(maxTemperatureFarenheit);
   hiTempValue.dataset.tempCelsius = convertToCelsius(maxTemperatureFarenheit);
